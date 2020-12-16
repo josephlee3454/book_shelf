@@ -1,0 +1,115 @@
+>>> from shelf.models import *>>> Book.objects.create(title='c#', description='a book about c#' )
+<Book: c# a book about c#>
+>>> Book.objects.create(title='java', description='a book about java' )
+<Book: java a book about java>
+>>> Book.objects.create(title='PHP', description='a book about PHP' )
+<Book: PHP a book about PHP>
+>>> Book.objects.create(title='Python', description='a book about python' )
+<Book: Python a book about python>
+>>> Book.objects.create(title='Ruby', description='a book about Ruby' )
+<Book: Ruby a book about Ruby>
+>>> Author.objects.create(first_name='jane' last_name='Emily Dickenson ' )
+  File "<console>", line 1
+    Author.objects.create(first_name='jane' last_name='Emily Dickenson ' )
+                                            ^
+SyntaxError: invalid syntax
+>>> Author.objects.create(first_name='jane', last_name='Emily Dickenson ' )
+<Author: jane Emily Dickenson  >
+>>> Author.objects.create(first_name='jane', last_name='Austen' )
+<Author: jane Austen >
+>>> Author.objects.create(first_name='Fyodo', last_name='Dostoevsky' )
+<Author: Fyodo Dostoevsky >
+>>> Author.objects.create(first_name='William', last_name='Shakespere' )
+<Author: William Shakespere >
+>>> Author.objects.create(first_name='Lau', last_name='Tzu' )
+<Author: Lau Tzu >
+>>> Author.objects.all()<QuerySet [<Author: joseph Lee ergqergergqergqergfer>, <Author: jane Emily Dickenson  >, <Author: jane Austen >, <Author: Fyodo Dostoevsky >, <Author: William Shakespere >, <Author: Lau Tzu >]>
+>>> Book.objects.all()
+<QuerySet [<Book: why red pandas suck these panadas suck because .....>, <Book: The Great gatsby a book about a rich guy spending lots of money>, <Book: Harry Potter some dorky kid has magic>, <Book: Twilight vampires that sparkle>, <Book: c# a book about c#>, <Book: java a book about java>, <Book: PHP a book about PHP>, <Book: Python a book about python>, <Book: Ruby a book about Ruby>]>
+>>> Book.objects.get(id=5)
+<Book: c# a book about c#>
+>>> x = Book.objects.get(id=5)
+>>> x.title = 'the c#'
+>>> x.save()
+>>> 
+>>> x = Book.objects.get(id=5)
+>>> 
+KeyboardInterrupt
+>>> Book.objects.get(id=5)
+<Book: the c# a book about c#>
+>>> Author.objects.all()
+<QuerySet [<Author: joseph Lee ergqergergqergqergfer>, <Author: jane Emily Dickenson  >, <Author: jane Austen >, <Author: Fyodo Dostoevsky >, <Author: William Shakespere >, <Author: Lau Tzu >]>
+>>> Author.objects.get(id=4)
+<Author: Fyodo Dostoevsky >
+>>> y = Author.objects.get(id=4)
+>>> y.first_name = 'Bill'
+>>> y.save()
+>>> Author.objects.get(id=4)
+<Author: Bill Dostoevsky >
+>>> x = Book.objects.get(id=1)
+>>> y = Book.objects.get(id=2)
+>>> a = Author.objects.get(id=1)
+>>> a.books.add(x,y)
+>>> a = Author.objects.get(id=1)
+>>> Author.objects.get(id=1)
+<Author: joseph Lee ergqergergqergqergfer>
+>>> a.books.all()
+<QuerySet [<Book: why red pandas suck these panadas suck because .....>, <Book: The Great gatsby a book about a rich guy spending lots of money>]>
+>>> 
+>>> x = Book.objects.get(id=1,id=2,id=3)
+  File "<console>", line 1
+SyntaxError: keyword argument repeated
+>>> x = Book.objects.get(id=1)
+>>> y = Book.objects.get(id=1)
+>>> z = Book.objects.get(id=1)
+>>> a = Author.objects.get(id=3)
+>>> a.books.add(x,y,z)
+>>> a.book.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Author' object has no attribute 'book'
+>>> Author.objects.get(id=3)
+<Author: jane Austen >
+>>> a.books.all()
+<QuerySet [<Book: why red pandas suck these panadas suck because .....>]>
+>>> 
+>>> book1 = Book.objects.get(id=1)
+>>> book2 = Book.objects.get(id=2)
+>>> book3 = Book.objects.get(id=3)
+>>> book4 = Book.objects.get(id=4)
+>>> a = Author.objects.get(id=3)
+>>> a.books.add(book1,book2,book3,book4)
+>>> a,books.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'books' is not defined
+>>> a.books.all()
+<QuerySet [<Book: why red pandas suck these panadas suck because .....>, <Book: The Great gatsby a book about a rich guy spending lots of money>, <Book: Harry Potter some dorky kid has magic>, <Book: Twilight vampires that sparkle>]>
+>>> a = Author.objects.get(id=4)
+>>> book1 = Book.objects.get(id=1)
+>>> book2 = Book.objects.get(id=2)
+>>> book3 = Book.objects.get(id=3)
+>>> book4 = Book.objects.get(id=4)
+>>> book5 = Book.objects.get(id=5)
+>>> a.books.add(book1,book2,book3,book4,book5)
+>>> Author.objects.get(id=4)
+<Author: Bill Dostoevsky >
+>>> a.books.all()
+<QuerySet [<Book: why red pandas suck these panadas suck because .....>, <Book: The Great gatsby a book about a rich guy spending lots of money>, <Book: Harry Potter some dorky kid has magic>, <Book: Twilight vampires that sparkle>, <Book: the c# a book about c#>]>
+>>> 
+>>> b = Book.objects.get(id=3)
+>>> b.authors.all()
+<QuerySet [<Author: jane Austen >, <Author: Bill Dostoevsky >]>
+>>> 
+>>> b.authors.first()
+<Author: jane Austen >
+>>> v = b.authors.first()
+>>> v.delete()
+(5, {'shelf.Author_books': 4, 'shelf.Author': 1})
+>>> b.authors.get(id=1)
+>>> b.authors.first()
+<Author: jane Austen >
+>>> v = b.authors.first()
+>>> v.delete()
+(5, {'shelf.Author_books': 4, 'shelf.Author': 1})
+>>> b.authors.get(id=1)

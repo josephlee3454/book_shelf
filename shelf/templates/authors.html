@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet"  href="{% static 'css/style.css' %}">    
+
+</head>
+<body>
+
+        <div class="first-div">
+
+            <h1> Add a Author !!!</h1>
+            <form action="/authors" method="POST">
+                {% csrf_token %}
+                <label>First Name: </label>{{second_form.first_name}}<br>
+                <label>Last Name:</label>{{second_form.last_name}}<br>
+                <label>Notes:</label>{{second_form.notes}}<br>
+                <input  type="submit" >
+            </form>
+   
+            <h1 class='new-h1'>
+                All the Users
+            </h1>
+                <table class="table" border = "1" cellpadding = "15" cellspacing = "5">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                
+                    <div>
+                    {% for obj in objs %}
+                    <tr> 
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.first_name}} {{obj.last_name}}</td>
+                        <td><a href="/view_author/{{obj.id}}">View</a></td>
+                    </tr>
+                       
+                    {% endfor %}
+                    </div>
+                </table>
+
+        </div>
+
+</body>
+</html>first_name
+    last_name
+    notes 
